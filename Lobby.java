@@ -33,7 +33,7 @@ public class Lobby {
         return settings;
     }
 
-    public void updateSettings(String setting, String Value) {
+    public void updateSettings(String setting, String value) {
         // updates Lobby settings
         // Call settings and apply some class function
         settings.updateSettings(setting, value);
