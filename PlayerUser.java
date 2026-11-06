@@ -4,7 +4,7 @@ public class PlayerUser {
     private boolean isGuest; // true if user is a guest
     private Lobby connectedLobby; // lobby that the user is currently connected to
 
-    public PlayerUser(String Username, boolean isGuest) {
+    public PlayerUser(Int id, String Username, boolean isGuest) {
         // constructor for PlayerUser
         // creates a user with specified username and the value of isGuest
         // provided user has a valid name
@@ -13,7 +13,7 @@ public class PlayerUser {
         this.username = username;
         this.isGuest = false;
         // Link to an instance of lobby.
-        this.connectedLobby = Lobby();
+        this.setConnectedLobby = null;
     }
 
     public int getId() {
@@ -31,7 +31,9 @@ public class PlayerUser {
         return isGuest;
     }
 
-    public void connectToLobby(Lobby lobby) {
+    public void setConnectedLobby(Lobby lobby) {
         // Connects user to specified Lobby
+        this.connectedLobby = lobby;
+
     }
 }
