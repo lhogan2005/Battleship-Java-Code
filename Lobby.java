@@ -41,6 +41,8 @@ public class Lobby {
 
     public void addOpponent(PlayerUser opponent) {
         // adds opponent to the lobby
+
+        // check to make sure player is null so connected player can't be overwritten
         if (oppPlayer == null) {
             oppPlayer = opponent;
             oppPlayer.setConnectedLobby(this);
@@ -51,7 +53,7 @@ public class Lobby {
         // transitions from lobby into Game
         // Calls game and uses some function.
 
-        
+
         if (hostPlayer != null && oppPlayer != null) {
             game = new Game(this, hostPlayer, oppPlayer);
         }
