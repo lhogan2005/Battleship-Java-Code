@@ -39,6 +39,8 @@ public class Game {
         
         // If turn is even its player 1 if odd its player 2
         this.turn = 0;
+
+        this.state = GameState.PLACE;
     }
 
     public void confirmPlacement(PlayerData player) {
