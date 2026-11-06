@@ -41,7 +41,7 @@ public class Game {
         this.turn = 0;
     }
 
-    public void confirmPlacement(PlayerData player) {
+    public void confirmPlacement(PlayerDat  a player) {
         // This should take in a player. Call place ships until no ships left to place (use for loop).
         
         // Should trigger a is ready.
