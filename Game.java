@@ -26,10 +26,14 @@ public class Game {
         this.lobby = lobby;
         
         // Trying to pass in PlayerUser, might need to change to create a new instance of PlayerData for player 1 and 2.
-        this.player1 = PlayerUser player1;
-        this.player2 = PlayerUser player2;
-        this.grid1 = new Grid grid1;
-        this.grid2 = new Grid grid2;
+        this.player1 = new PlayerUser player1;
+        this.player2 = new PlayerUser player2;
+
+        // Change this to be correct type for grid size.
+        int size = lobby.getSettings().getGridSize();
+
+        this.grid1 = new Grid(size);
+        this.grid2 = new Grid(size);
         
         // If turn is even its player 1 if odd its player 2
         this.turn = 0;

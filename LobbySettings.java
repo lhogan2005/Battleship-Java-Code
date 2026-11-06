@@ -30,4 +30,8 @@ public class LobbySettings {
         //provided value is a is one or more valid abilities
     }
 
+    public int getGridSize() {
+        return gridSize;
+    }
+
 }
