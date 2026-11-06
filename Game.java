@@ -24,16 +24,18 @@ public class Game {
         // Trun either a int 1 or 0 to show player 1 or 2. Or if we wish to keep track of player turn count set it to an increasing tick.
 
         this.lobby = lobby;
-        
-        // Trying to pass in PlayerUser, might need to change to create a new instance of PlayerData for player 1 and 2.
-        this.player1 = new PlayerUser player1;
-        this.player2 = new PlayerUser player2;
-
+    
         // Change this to be correct type for grid size.
         int size = lobby.getSettings().getGridSize();
 
         this.grid1 = new Grid(size);
         this.grid2 = new Grid(size);
+
+        // Trying to pass in PlayerUser, might need to change to create a new instance of PlayerData for player 1 and 2.
+        // Not sure how to create instances of player 1 and 2.
+        this.player1 = new PlayerData(1, grid1, grid2);
+        this.player2 = new PlayerData(2, grid2, grid1);
+
         
         // If turn is even its player 1 if odd its player 2
         this.turn = 0;
