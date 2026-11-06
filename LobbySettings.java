@@ -3,7 +3,7 @@ import java.util.List;
 public class LobbySettings {
     private int gridSize;
 
-    private List<ShipType> shiptypes; // Shiptypes included in the Game
+    private List<ShipType> shipTypes; // Shiptypes included in the Game
 
     private List<AbilityType> abilityTypes; // Abilities available in the Game
 
@@ -12,7 +12,7 @@ public class LobbySettings {
         // Created with default settings
 
         this.gridSize = gridSize;
-        this.shiptypes = shipTypes;
+        this.shipTypes = shipTypes;
         this.abilityTypes = abilityTypes;
     }
 
@@ -82,7 +82,7 @@ public class LobbySettings {
     }
 
     public List<ShipType> getShipTypes() {
-        return shiptypes;
+        return shipTypes;
     }
 
     public List<Ability> getAbilityTypes() {
