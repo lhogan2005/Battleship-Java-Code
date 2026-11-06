@@ -38,7 +38,16 @@ public class PlayerData {
 
     public int getShipCount() {
         //returns the number of Ships currently remaining
-        return ships.size();
+        
+        int shipCount = 0;
+
+        for (Ship ship: ships) {
+            if (!ship.getSunk()) {
+                shipCount ++;
+            }
+        }
+
+        return shipCount;
     }
 
     public void useAbility(Ability ability, Cell cell) {

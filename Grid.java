@@ -43,16 +43,12 @@ public class Grid {
         int originrow = origin.getRow();
         int origincolumn = origin.getColumn();
 
-        if (origin - radius < 0) {
-            return null;
-        }
-
         for (int row = originrow - radius; row <= originrow + radius; row++) {
             for (int column = origincolumn - radius; column <= origincolumn + radius; column++) {
                 
-                if (row >= 0  && row < cells.length() && column >= 0 && column < cells[row].length()) {
+                if (row >= 0  && row < cells.length && column >= 0 && column < cells[row].length) {
                     Cell radiusCell = getCell(row, column);
-                    radiusCell.hitCell();
+                    hitCell(radiusCell);
                 }
             }
         }
@@ -78,14 +74,15 @@ public class Grid {
         // true = vertical
 
 
-        shipSize = type.getSize(); // size of ship to be placed
+        int shipSize = type.getSize(); // size of ship to be placed
         ArrayList<Cell> shipCells = new ArrayList<Cell>(); //temp collection of occuptied cells by ship
-
+        int currentRow;
+        int currentColumn;
 
         for (int i = 0; i < shipSize; i++) {
             if (!orientation) { // Horizontal, keep row unchaged, move one column for each section of ship
-                int currentRow = row;
-                int currentColumn = column + i;
+                currentRow = row;
+                currentColumn = column + i;
             }
             else { // vertical, keerp column unchanged, move one row for each section
                 currentRow = row + i;
@@ -93,17 +90,19 @@ public class Grid {
             }
 
             // check cell is inside grid
-            if currentRow < shipSize || currentColumn < shipSize  || cell.hasShip() {
+            if (currentRow < 0 || currentRow >= cells.length || currentColumn < 0  || currentColumn >= cells[currentRow].length) {
                 return null;
             }
 
 
             // get cell object
-            currentCell = getCell(currentRow, currentColumn);
+            Cell currentCell = getCell(currentRow, currentColumn);
             
-            if (!currentCell.hasShip()) {
-                shipCells.add(currentCell)
+            if (currentCell.hasShip()) {
+                return null;
             }
+
+            shipCells.add(currentCell);
 
         }
         
