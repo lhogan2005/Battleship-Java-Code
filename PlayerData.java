@@ -8,6 +8,7 @@ public class PlayerData {
     private List<Ship> ships; //Ships that belong to this Player
     private List<Ability> abilities; // Abilities for this Player
     private int points; // points vailable for Player
+    private boolean ready;
 
     public PlayerData(int id, Grid selfGrid, Grid oppGrid)  {
         //constructor for PlayerData
@@ -27,6 +28,7 @@ public class PlayerData {
         this.ships = new ArrayList<>();
         this.abilities = new ArrayList<>();
         this.points = 0;
+        this.ready = false;
     }
 
     public int getId() {
@@ -68,6 +70,14 @@ public class PlayerData {
         // increase shipCount
 
         ships.add(ship);
+    }
+
+    public void setReady() {
+        this.ready = true;
+    }
+
+    public boolean isReady() {
+        return ready;
     }
 
 

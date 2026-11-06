@@ -39,7 +39,11 @@ public class Game {
         // This should take in a player. Call place ships until no ships left to place (use for loop).
         
         // Should trigger a is ready.
-        player.isReady(true);
+        player.setReady();
+
+        if (player1.isReady() && player2.isReady()) {
+            state = GameState.BATTLE;
+        }
     }
 
     // public void endTurn(PlayerData player) {
