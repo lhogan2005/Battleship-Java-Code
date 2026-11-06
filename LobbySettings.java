@@ -85,7 +85,7 @@ public class LobbySettings {
         return shipTypes;
     }
 
-    public List<Ability> getAbilityTypes() {
+    public List<AbilityType> getAbilityTypes() {
         return abilityTypes;
     }
 
