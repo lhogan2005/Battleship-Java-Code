@@ -30,24 +30,36 @@ public class Game {
         this.player2 = PlayerUser player2;
         this.grid1 = new Grid grid1;
         this.grid2 = new Grid grid2;
+        
+        // If turn is even its player 1 if odd its player 2
         this.turn = 0;
     }
 
     public void confirmPlacement(PlayerData player) {
-        //
+        // This should take in a player. Call place ships until no ships left to place (use for loop).
+        
+        // Should trigger a is ready.
+        player.isReady(true);
     }
 
-    public void endTurn(PlayerData player) {
-        // ends current player turn
-        // provided player is current player
-    }
+    // public void endTurn(PlayerData player) {
+    //     // ends current player turn
+    //     // provided player is current player
+
+
+    // }
 
     public void nextTurn() {
         // internally switch turn
+        turn++;
     }
 
     public void endGame(PlayerData loser) {
         // ends game when a player has lost all ships
+        // Checks to make sure that the ship count is actually 0.
+        if (loser.getShipCount() == 0) {
+            state = GameState.END;
+        }
     }
 
 }
