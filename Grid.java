@@ -3,8 +3,11 @@ import java.util.ArrayList;
 public class Grid {
 
     private Cell[][] cells;
+    private int size;
 
     public Grid(int size) {
+
+        this.size = size;
         // constructor for Grid
         cells = new Cell[size][size];
 
@@ -118,6 +121,10 @@ public class Grid {
         return newShip;
 
 
+    }
+
+    public int getSize() {
+        return size;
     }
     
 }
