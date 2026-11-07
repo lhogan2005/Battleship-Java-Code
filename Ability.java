@@ -1,4 +1,5 @@
 public abstract class Ability {
+    // Initalise a cost variable
     protected int cost;
 
     public Ability(int cost){
@@ -11,7 +12,9 @@ public abstract class Ability {
         return cost;
     }
 
+    // Called with an ability selected, this will recognise which ability the user pressed and pass the values to the corresponding function.
     public void use(Cell target, Grid grid) {
+        // Calls effect to resolve ability.
         effect(target, grid);
     }
 
