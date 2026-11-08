@@ -104,10 +104,26 @@ public class Game {
     //Allow ships to actually be placed in game instance
     public void placeShip(PlayerData player, ShipType type, int row, int column, boolean orientation){
         
-        if (state == GameState.PLACE && lobby.getSettings().getShipTypes.contains(type)) {
+        if (state == GameState.PLACE && lobby.getSettings().getShipTypes().contains(type)) {
             Ship ship = player.getSelfGrid().placeShip(type, row, column, orientation);
-            player.addShip(ship);
+            
+            if (ship != null) {
+                player.addShip(ship);
+            }
         }
+    }
+
+
+    public PlayerData getPlayerForCurrentTurn() {
+
+        if (turn % 2 == 0) {
+            return player1;
+        }
+        else {
+            return player2;
+        }
+
+        
     }
 
 }
