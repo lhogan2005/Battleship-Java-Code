@@ -93,4 +93,8 @@ public class PlayerData {
         abilities.add(ability);
     }
 
+    public Grid getSelfGrid() {
+        return selfGrid;
+    }
+
 }
