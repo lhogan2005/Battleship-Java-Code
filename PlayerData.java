@@ -50,7 +50,7 @@ public class PlayerData {
         return shipCount;
     }
 
-    public boolean useAbility(Ability ability, Cell cell) {
+    public void useAbility(Ability ability, Cell cell) {
         // Uses an selected Ability on specified cell
         // Player must have enough points to use selected ability
 
@@ -108,12 +108,14 @@ public class PlayerData {
             else if (type == AbilityType.RADAR && ability instanceof Radar) {
                 return ability;
             }
-            else if (type == AbilityType.MISSLE && ability instanceof Missile) {
+            else if (type == AbilityType.MISSILE && ability instanceof Missile) {
                 return ability;
             }
 
-            return null;
+
         }
+
+        return null;
     }
 
 }

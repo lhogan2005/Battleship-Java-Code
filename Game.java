@@ -177,15 +177,16 @@ public class Game {
          Grid oppGrid = opp.getSelfGrid();
 
         Cell target = oppGrid.getCell(row, column);
-
-        if (!player.useAbility(ability, target)){
+        
+        if (player.getPoints() < ability.getCost()) {
             return false;
         }
+        player.useAbility(ability, target);
 
         player.gainPoints(1);
 
-        if (opponent.getShipCount() == 0) {
-            endGame(opponent);
+        if (opp.getShipCount() == 0) {
+            endGame(opp);
         }
         else {
             nextTurn();

@@ -25,7 +25,7 @@ public class Missile extends Ability {
             } else {
                 // If not we set the cell to hit.
                 currCell = grid.getCell(row, column);
-                currCell.hit();
+                grid.hitCell(currCell);
             }
         }
     }
