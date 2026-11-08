@@ -89,5 +89,8 @@ public class PlayerData {
         return ready;
     }
 
+    public void addAbility(Ability ability) {
+        abilities.add(ability);
+    }
 
 }

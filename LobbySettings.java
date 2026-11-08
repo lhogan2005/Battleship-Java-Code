@@ -67,7 +67,7 @@ public class LobbySettings {
         //provided value is a is one or more valid abilities
         // We are making the assumption that updates come as "Shot,Bomb,Radar"
 
-        String[] AbilityNames = value.split(",");
+        String[] abilityNames = value.split(",");
         for (String abilityName : abilityNames) {
  
             //Converts String to ShipType enum

@@ -41,6 +41,12 @@ public class Game {
         this.turn = 0;
 
         this.state = GameState.PLACE;
+
+
+        for (AbilityType ability : lobby.getSettings().getAbilityTypes()) {
+            this.player1.addAbility(convertAbility(ability));
+            this.player2.addAbility(convertAbility(ability));
+        }
     }
 
     public void confirmPlacement(PlayerData player) {
@@ -71,6 +77,27 @@ public class Game {
         // Checks to make sure that the ship count is actually 0.
         if (loser.getShipCount() == 0) {
             state = GameState.END;
+        }
+    }
+
+    //function to convert AbilityType Enum to useable ability objects.
+    private Ability convertAbility(AbilityType type) {
+
+        if (type == AbilityType.SHOT) {
+            return new Shot();
+        }
+        else if (type == AbilityType.BOMB) {
+            return new Bomb();
+        }
+        else if (type == AbilityType.RADAR) {
+            return new Radar();
+        }
+        else if (type == AbilityType.MISSILE) {
+            return new Missile();
+        }
+
+        else {
+            return;
         }
     }
 
