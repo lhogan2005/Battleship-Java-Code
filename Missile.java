@@ -18,14 +18,14 @@ public class Missile extends Ability {
         for (int row = 0; row < grid.getSize(); row++) {
             // saves the current cell to currCell
             currCell = grid.getCell(row, column);
+            boolean wasBlank = currCell.getStatus() == CellStatus.BLANK;
+            
+            grid.hitCell(currCell);
+
             // Checks if the cell is hit
-            if (currCell.getStatus() == CellStatus.HIT) {
+            if (wasBlank && currCell.hasShip()) {
                 // If hit we exit the for loop
                 break;
-            } else {
-                // If not we set the cell to hit.
-                currCell = grid.getCell(row, column);
-                grid.hitCell(currCell);
             }
         }
     }
