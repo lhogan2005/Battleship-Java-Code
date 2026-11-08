@@ -54,7 +54,7 @@ public class LobbySettings {
 
         for (String type : types) {
             //converts String to ShipType enum
-            ShipType shipType = shipType.ValueOf(type.toUpperCase());
+            ShipType shipType = shipType.valueOf(type.toUpperCase());
 
             // add enabled shiptypes
             shipTypes.add(shipType);

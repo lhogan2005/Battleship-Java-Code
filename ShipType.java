@@ -1,9 +1,9 @@
 public enum ShipType {
-    Battleship(4),
-    Destroyer(3),
-    Submarine(3),
-    PatrolBoat(2),
-    Carrier(5);
+    BATTLESHIP(4),
+    DESTROYER(3),
+    SUBMARINE(3),
+    PATROLBOAT(2),
+    CARRIER(5);
 
     private final int size;
 

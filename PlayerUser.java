@@ -4,14 +4,14 @@ public class PlayerUser {
     private boolean isGuest; // true if user is a guest
     private Lobby connectedLobby; // lobby that the user is currently connected to
 
-    public PlayerUser(Int id, String username, boolean isGuest) {
+    public PlayerUser(int id, String username, boolean isGuest) {
         // constructor for PlayerUser
         // creates a user with specified username and the value of isGuest
         // provided user has a valid name
         // connectedLobby will be initaily null
         this.id = id;
         this.username = username;
-        this.isGuest = isGuest
+        this.isGuest = isGuest;
         // Link to an instance of lobby.
         this.connectedLobby = null;
     }
