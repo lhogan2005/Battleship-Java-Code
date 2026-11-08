@@ -18,6 +18,11 @@ public class Grid {
         }
     }
 
+    public boolean inBounds(int row, int column) {
+        return row >= 0 && row < size && column >= 0 && column < size;
+    }
+    
+
     public Cell getCell(int row, int column) {
         // returns the cell at specified Grid position
         //provided row and column are valid
@@ -126,5 +131,6 @@ public class Grid {
     public int getSize() {
         return size;
     }
+
     
 }

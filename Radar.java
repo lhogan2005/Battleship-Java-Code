@@ -22,6 +22,6 @@ public class Radar extends Ability {
                 }
             }
         }
-        System.out.println(shipNum);
+        return String.valueOf(shipNum);
     }
 }

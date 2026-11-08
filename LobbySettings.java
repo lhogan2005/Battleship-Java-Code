@@ -49,6 +49,7 @@ public class LobbySettings {
         //provided value is valid
         // We are making the assumption that uupdates come as "Carrier,Submarine,Destroyer"
 
+        shipTypes.clear()
         // split list by comma
         String[] types = value.split(",");
 
@@ -66,6 +67,8 @@ public class LobbySettings {
         //updates the Abilities available in the Game
         //provided value is a is one or more valid abilities
         // We are making the assumption that updates come as "Shot,Bomb,Radar"
+
+        abilityTypes.clear()
 
         String[] abilityNames = value.split(",");
         for (String abilityName : abilityNames) {
