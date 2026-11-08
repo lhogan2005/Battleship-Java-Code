@@ -7,6 +7,8 @@ public class Game {
     private int turn;
     private GameState state;
 
+    private PlayerData winner;
+
     public Game(Lobby lobby, PlayerUser player1, PlayerUser player2) {
         // Constructor for Game
         // provided lobby, player1, player2 are valid
@@ -49,6 +51,47 @@ public class Game {
         }
     }
 
+
+    public PlayerData getPlayer1() {
+        return player1;
+    }
+
+    public PlayerData getPlayer2() {
+        return player2;
+    }
+
+
+    public PlayerData winner() {
+        return winner;
+    }
+
+    public GameState getState() {
+        return state;
+    }
+
+    private PlayerData getOpponentPlayer(PlayerData player) {
+        if(player == player1) {
+            return player2;
+        }
+        else {
+            return player1;
+        }
+    }
+
+
+
+        //Allow ships to actually be placed in game instance
+    public void placeShip(PlayerData player, ShipType type, int row, int column, boolean orientation){
+        
+        if (state == GameState.PLACE && lobby.getSettings().getShipTypes().contains(type)) {
+            Ship ship = player.getSelfGrid().placeShip(type, row, column, orientation);
+            
+            if (ship != null) {
+                player.addShip(ship);
+            }
+        }
+    }
+
     public void confirmPlacement(PlayerData player) {
         // This should take in a player. Call place ships until no ships left to place (use for loop).
         
@@ -67,6 +110,19 @@ public class Game {
 
     // }
 
+
+    public PlayerData getPlayerForCurrentTurn() {
+
+        if (turn % 2 == 0) {
+            return player1;
+        }
+        else {
+            return player2;
+        }
+
+
+    }
+
     public void nextTurn() {
         // internally switch turn
         turn++;
@@ -76,6 +132,7 @@ public class Game {
         // ends game when a player has lost all ships
         // Checks to make sure that the ship count is actually 0.
         if (loser.getShipCount() == 0) {
+            winner = getOpponentPlayer(loser);
             state = GameState.END;
         }
     }
@@ -97,34 +154,44 @@ public class Game {
         }
 
         else {
-            return;
+            return null;
         }
     }
 
-    //Allow ships to actually be placed in game instance
-    public void placeShip(PlayerData player, ShipType type, int row, int column, boolean orientation){
-        
-        if (state == GameState.PLACE && lobby.getSettings().getShipTypes().contains(type)) {
-            Ship ship = player.getSelfGrid().placeShip(type, row, column, orientation);
-            
-            if (ship != null) {
-                player.addShip(ship);
-            }
+    public boolean useAbility(PlayerData player, AbilityType type, int row, int column) {
+        if (state != GameState.BATTLE) {
+            return false;
         }
-    }
 
+        if (player != getPlayerForCurrentTurn()){
+            return false;
+        }
 
-    public PlayerData getPlayerForCurrentTurn() {
+        Ability ability = player.getAbility(type);
 
-        if (turn % 2 == 0) {
-            return player1;
+        if (ability == null) {
+            return false;
+        }
+
+        PlayerData opp = getOpponentPlayer(player);
+         Grid oppGrid = opp.getSelfGrid();
+
+        Cell target = oppGrid.getCell(row, column);
+
+        if (!player.useAbility(ability, target)){
+            return false;
+        }
+
+        player.gainPoints(1);
+
+        if (opponent.getShipCount() == 0) {
+            endGame(opponent);
         }
         else {
-            return player2;
+            nextTurn();
         }
 
-        
+        return true;
     }
 
 }
-
