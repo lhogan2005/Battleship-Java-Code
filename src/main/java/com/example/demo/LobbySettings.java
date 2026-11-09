@@ -1,84 +1,72 @@
 package com.example.demo;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class LobbySettings {
     private int gridSize;
-
-    private List<ShipType> shipTypes; // Shiptypes included in the Game
-
-    private List<AbilityType> abilityTypes; // Abilities available in the Game
+    private List<ShipType> shipTypes;
+    private List<AbilityType> abilityTypes;
 
     public LobbySettings(int gridSize, List<ShipType> shipTypes, List<AbilityType> abilityTypes) {
-        // constructor for LobbySettings
-        // Created with default settings
-
         this.gridSize = gridSize;
         this.shipTypes = shipTypes;
         this.abilityTypes = abilityTypes;
     }
 
     public void updateSettings(String setting, String value) {
-        // updates specified Lobby setting
-        // provided setting and value are valid
+        if (setting == null || value == null) {
+            throw new IllegalArgumentException("Setting and value are required");
+        }
 
-        if (setting.toLowerCase().equals("gridsize")) {
-            updateGridSize(value);
-        }
-        else if (setting.toLowerCase().equals("shiptype")) {
-            updateShipTypes(value);
-        }
-        else if (setting.toLowerCase().equals("abilities")) {
-            updateAbilities(value);
+        switch (setting.toLowerCase(Locale.ROOT).replace("_", "").replace("-", "")) {
+            case "gridsize" -> updateGridSize(value);
+            case "shiptype", "shiptypes" -> updateShipTypes(value);
+            case "abilities", "abilitytype", "abilitytypes" -> updateAbilities(value);
+            default -> throw new IllegalArgumentException("Unknown lobby setting: " + setting);
         }
     }
 
-    private void updateGridSize(String value){
-        // updates grid to specified size
-        // provided value is valid
-
-        // convert string to int
-            int valueInt = Integer.parseInt(value);
-        
-        // grid smaller than 5 wouldn't allow all ships to be placed
-        if (valueInt >= 5) {
-            this.gridSize = valueInt;
+    private void updateGridSize(String value) {
+        try {
+            int updatedSize = Integer.parseInt(value.trim());
+            if (updatedSize < 5 || updatedSize > 50) {
+                throw new IllegalArgumentException("Grid size must be between 5 and 50");
+            }
+            gridSize = updatedSize;
+        } catch (NumberFormatException exception) {
+            throw new IllegalArgumentException("Grid size must be a number", exception);
         }
     }
 
     private void updateShipTypes(String value) {
-        // updates the shipType available in the Game
-        //provided value is valid
-        // We are making the assumption that uupdates come as "Carrier,Submarine,Destroyer"
-
-        shipTypes.clear();
-        // split list by comma
-        String[] types = value.split(",");
-
-        for (String type : types) {
-            //converts String to ShipType enum
-            ShipType shipType = ShipType.valueOf(type.toUpperCase());
-
-            // add enabled shiptypes
-            shipTypes.add(shipType);
+        List<ShipType> updatedTypes = Arrays.stream(value.split(","))
+                .map(String::trim)
+                .map(type -> parseEnum(type, ShipType.class))
+                .toList();
+        if (updatedTypes.isEmpty() || updatedTypes.stream().distinct().count() != updatedTypes.size()) {
+            throw new IllegalArgumentException("Ship types must be non-empty and unique");
         }
-
+        shipTypes = updatedTypes;
     }
 
     private void updateAbilities(String value) {
-        //updates the Abilities available in the Game
-        //provided value is a is one or more valid abilities
-        // We are making the assumption that updates come as "Shot,Bomb,Radar"
+        List<AbilityType> updatedTypes = Arrays.stream(value.split(","))
+                .map(String::trim)
+                .map(type -> parseEnum(type, AbilityType.class))
+                .toList();
+        if (updatedTypes.isEmpty()) {
+            throw new IllegalArgumentException("At least one ability type is required");
+        }
+        abilityTypes = updatedTypes;
+    }
 
-        abilityTypes.clear();
-
-        String[] abilityNames = value.split(",");
-        for (String abilityName : abilityNames) {
- 
-            //Converts String to ShipType enum
-            AbilityType abilityType = AbilityType.valueOf(abilityName.toUpperCase());
-            // add enabled abilities
-            abilityTypes.add(abilityType);
+    private <T extends Enum<T>> T parseEnum(String value, Class<T> enumType) {
+        try {
+            return Enum.valueOf(enumType, value.toUpperCase(Locale.ROOT));
+        } catch (IllegalArgumentException exception) {
+            throw new IllegalArgumentException("Invalid " + enumType.getSimpleName() + ": " + value, exception);
         }
     }
 
@@ -93,5 +81,4 @@ public class LobbySettings {
     public List<AbilityType> getAbilityTypes() {
         return abilityTypes;
     }
-
 }

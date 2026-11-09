@@ -83,26 +83,42 @@ public class Game {
 
 
         //Allow ships to actually be placed in game instance
-    public void placeShip(PlayerData player, ShipType type, int row, int column, boolean orientation){
-        
-        if (state == GameState.PLACE && lobby.getSettings().getShipTypes().contains(type)) {
-            Ship ship = player.getSelfGrid().placeShip(type, row, column, orientation);
-            
-            if (ship != null) {
-                player.addShip(ship);
-            }
+    public boolean placeShip(PlayerData player, ShipType type, int row, int column, boolean orientation){
+        if (state != GameState.PLACE
+                || (player != player1 && player != player2)
+                || player.isReady()
+                || type == null
+                || !lobby.getSettings().getShipTypes().contains(type)
+                || player.hasShipType(type)) {
+            return false;
         }
+
+        Ship ship = player.getSelfGrid().placeShip(type, row, column, orientation);
+        if (ship == null) {
+            return false;
+        }
+        player.addShip(ship);
+        return true;
     }
 
-    public void confirmPlacement(PlayerData player) {
+    public boolean confirmPlacement(PlayerData player) {
         // This should take in a player. Call place ships until no ships left to place (use for loop).
         
         // Should trigger a is ready.
+        if (state != GameState.PLACE || (player != player1 && player != player2) || player.isReady()) {
+            return false;
+        }
+        for (ShipType type : lobby.getSettings().getShipTypes()) {
+            if (!player.hasShipType(type)) {
+                return false;
+            }
+        }
         player.setReady();
 
         if (player1.isReady() && player2.isReady()) {
             state = GameState.BATTLE;
         }
+        return true;
     }
 
     // public void endTurn(PlayerData player) {

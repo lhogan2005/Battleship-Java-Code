@@ -34,6 +34,18 @@ public class Lobby {
         return settings;
     }
 
+    public PlayerUser getHostPlayer() {
+        return hostPlayer;
+    }
+
+    public PlayerUser getOpponentPlayer() {
+        return oppPlayer;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
     public void updateSettings(String setting, String value) {
         // updates Lobby settings
         // Call settings and apply some class function
@@ -69,11 +81,16 @@ public class Lobby {
             return;
         }
 
-        //removes reference to this lobby by PlayerUser
-        hostPlayer.setConnectedLobby(null);
-        oppPlayer.setConnectedLobby(null);
+        close();
+    }
 
-        // clears the lobby state 
+    public void close() {
+        if (hostPlayer != null) {
+            hostPlayer.setConnectedLobby(null);
+        }
+        if (oppPlayer != null) {
+            oppPlayer.setConnectedLobby(null);
+        }
         oppPlayer = null;
         game = null;
     }

@@ -83,6 +83,15 @@ public class PlayerData {
         ships.add(ship);
     }
 
+    public boolean hasShipType(ShipType type) {
+        for (Ship ship : ships) {
+            if (ship.getShipType() == type) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void setReady() {
         this.ready = true;
     }
