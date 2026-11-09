@@ -78,4 +78,8 @@ public class Lobby {
         game = null;
     }
         
+
+    public Game getGame() {
+        return game;
+    }
 }

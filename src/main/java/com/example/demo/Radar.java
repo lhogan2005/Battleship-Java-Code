@@ -24,6 +24,7 @@ public class Radar extends Ability {
                 }
             }
         }
-        System.out.println("Radar detected " + shipNum + " ship(s).");
+        System.out.println(shipNum);
+        return;
     }
 }
